@@ -82,7 +82,7 @@ class Graph:
                 for next_vert in self.get_neighbors(v):
                     s.insert(0, next_vert)
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited=None, path=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
@@ -164,7 +164,7 @@ class Graph:
 
     
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -173,26 +173,24 @@ class Graph:
         This should be done using recursion.
         """
         #pass  # TODO
-        path = []
-        s = Stack()
-        s.push([starting_vertex])
-        visited = set()
+        if visited is None:
+            visited =  set()
 
-        while s.size() > 0:
-            path = s.pop()
-            last_vert = path[-1]
-            
-            if last_vert not in visited:
-                if last_vert == destination_vertex:
-                    return path
+        if path is None:
+            path = []
+            path.append(starting_vertex)
 
-                else:
-                    visited.add(last_vert)
+        if starting_vertex not in visited:
+            visited.add(starting_vertex)
+            if path[-1] == destination_vertex:
+                return path
+            for next_vertex in self.get_neighbors(starting_vertex):
+                cpath = list(path)
+                cpath.append(next_vertex)
+                rpath = self.dfs_recursive(next_vertex, destination_vertex, visited, cpath)
+                if rpath is not None:
+                    return rpath
 
-                for neighbor in self.get_neighbors(last_vert):
-                    copypath = path.copy()
-                    copypath.append(neighbor)
-                    s.push(copypath)
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
@@ -265,4 +263,5 @@ if __name__ == '__main__':
     '''
     print("dfs")
     print(graph.dfs(1, 6))
+    print("recursive dfs")
     print(graph.dfs_recursive(1, 6))

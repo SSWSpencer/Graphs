@@ -29,22 +29,19 @@ def earliest_ancestor(ancestors, starting_node):
         children = find_children(ancestors, i)
         if starting_node in children:
             possibleParents.append(i)
-        print(f"(gen{i}) CHILDREN OF {i}: {children}")
         for j in children:
             children2 = find_children(ancestors, j)
             if starting_node in children2:
                 possibleParents.append(i)
-            print(f"(gen2) CHILDREN OF {j}: {children2}")
             for k in children2:
                 children3 = find_children(ancestors, k)
                 if starting_node in children3:
                     possibleParents.append(i)
-                print(f"(gen3) CHILDREN OF {k}: {children3}")
                 for l in children3:
                     children4 = find_children(ancestors, l)
                     if starting_node in children4:
                         possibleParents.append(i)
-                    print(f"(gen4) CHILDREN OF {l}: {children4}")
+
     if len(possibleParents) == 0:
         return -1
     elif 10 in possibleParents:

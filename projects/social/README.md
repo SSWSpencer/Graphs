@@ -48,9 +48,22 @@ Note that in this sample, Users 3, 4 and 9 are not in User 1's extended social n
 
 1. To create 100 users with an average of 10 friends each, how many times would you need to call `add_friendship()`? Why?
 
+> 500
+> for i in range(num_users * avg_friendships // 2): self.add_friendship(x,y)
+> num_users = 100
+> avg_friendship = 10
+> (100 * 10) / 2 = 500
+
+
+
 2. If you create 1000 users with an average of 5 random friends each, what percentage of other users will be in a particular user's extended social network? What is the average degree of separation between a user and those in his/her extended network?
+> Somewhere around 99.4%, plus or minus a few percent. Had no idea how to calculate it so I ran it completely, and it displayed connections between 1 and 993 other nodes.
 
+> I looked up a formula for calculating the average degree of separation and it was terrifying. 
+> Σ^k_{i=1}(([Σ^l_{j=1}(x_{ij}*j)/N-1]*r^(k-i))/N)
+> i and j represent the rows and columns (respectively) in the matrix. l gives the number of colums in the matrix, and k is the number of steps in the sequential graph. N is the number of nodes in the graph. (paraphrased from https://arxiv.org/ftp/arxiv/papers/1007/1007.5476.pdf, page 3)
 
+> I know there is probably a more straightforward and simple way to solve this problem, but I looked around online for like 20 minutes and this was as close as I could get.
 
 ## 4. Stretch Goal
 
